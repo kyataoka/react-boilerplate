@@ -1,20 +1,15 @@
-import { useCallback, useState } from 'react';
+import { RouterProvider, createRouter } from '@tanstack/react-router';
 
-const App = () => {
-  const [count, setCount] = useState(0);
+import { routeTree } from './routeTree.gen';
 
-  const handleClick = useCallback(() => {
-    setCount((count) => count + 1);
-  }, []);
+const router = createRouter({ routeTree: routeTree });
 
-  return (
-    <>
-      <h1>React boilerplate</h1>
-      <div>
-        <button onClick={handleClick}>count is {count}</button>
-      </div>
-    </>
-  );
-};
+declare module '@tanstack/react-router' {
+  interface RouteComponentProps {
+    router: typeof router;
+  }
+}
+
+const App = () => <RouterProvider router={router} />;
 
 export { App };
