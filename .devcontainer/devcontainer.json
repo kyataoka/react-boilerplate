@@ -15,7 +15,8 @@
 			"extensions": [
 				"esbenp.prettier-vscode",
 				"streetsidesoftware.code-spell-checker",
-				"antfu.vite"
+				"antfu.vite",
+				"dbaeumer.vscode-eslint"
 			]
 		}
 	}
