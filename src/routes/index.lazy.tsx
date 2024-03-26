@@ -1,10 +1,11 @@
+import { Container } from '@mui/material';
 import { createLazyFileRoute } from '@tanstack/react-router';
 const Home = () => (
-  <div>
+  <Container maxWidth="lg">
     {[...Array(100)].map((_, i) => (
       <p key={i}>{i}</p>
     ))}
-  </div>
+  </Container>
 );
 
 const Route = createLazyFileRoute('/')({

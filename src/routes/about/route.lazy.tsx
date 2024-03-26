@@ -1,7 +1,8 @@
+import { Container } from '@mui/material';
 import { Link, Outlet, createLazyFileRoute } from '@tanstack/react-router';
 
 const About = () => (
-  <div>
+  <Container maxWidth="lg">
     <h1>About</h1>
     <ul>
       <li>
@@ -15,7 +16,7 @@ const About = () => (
       </li>
     </ul>
     <Outlet />
-  </div>
+  </Container>
 );
 
 const Route = createLazyFileRoute('/about')({

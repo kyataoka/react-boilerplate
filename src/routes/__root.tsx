@@ -5,7 +5,6 @@ import {
   type PaletteMode,
   Box,
   ThemeProvider,
-  Container,
   CssBaseline,
 } from '@mui/material';
 import { Outlet, createRootRoute } from '@tanstack/react-router';
@@ -37,8 +36,7 @@ const Root = () => {
       <CssBaseline />
       <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
         <Header onChangeTheme={handleChangeTheme} />
-        <Container
-          maxWidth="lg"
+        <Box
           component="main"
           sx={{
             flex: 1,
@@ -47,7 +45,7 @@ const Root = () => {
           }}
         >
           <Outlet />
-        </Container>
+        </Box>
         <Footer />
       </Box>
     </ThemeProvider>
