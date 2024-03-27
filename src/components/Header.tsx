@@ -53,6 +53,13 @@ export const Header = ({ onChangeTheme }: HeaderProps) => {
           </Button>
           <Button
             component={RouterLink}
+            to="/list"
+            color="inherit"
+          >
+            List
+          </Button>
+          <Button
+            component={RouterLink}
             to="/about"
             color="inherit"
           >
