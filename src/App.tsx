@@ -10,6 +10,4 @@ declare module '@tanstack/react-router' {
   }
 }
 
-const App = () => <RouterProvider router={router} />;
-
-export { App };
+export const App = () => <RouterProvider router={router} />;

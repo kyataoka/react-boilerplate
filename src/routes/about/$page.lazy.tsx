@@ -6,8 +6,6 @@ const Page = () => {
   return <Container>About Page: {page}</Container>;
 };
 
-const Route = createFileRoute('/about/$page')({
+export const Route = createFileRoute('/about/$page')({
   component: Page,
 });
-
-export { Route };

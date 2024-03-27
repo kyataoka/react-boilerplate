@@ -17,7 +17,7 @@ type HeaderProps = {
   onChangeTheme: (theme: PaletteMode) => void;
 };
 
-const Header = ({ onChangeTheme }: HeaderProps) => {
+export const Header = ({ onChangeTheme }: HeaderProps) => {
   const theme = useTheme();
   const themeMode = useMemo(() => theme.palette.mode, [theme]);
 
@@ -70,5 +70,3 @@ const Header = ({ onChangeTheme }: HeaderProps) => {
     </AppBar>
   );
 };
-
-export { Header };

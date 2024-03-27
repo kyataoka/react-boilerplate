@@ -2,7 +2,7 @@ import { AppBar, Box, Link, Toolbar } from '@mui/material';
 
 import { Meta } from '@/Meta';
 
-const Footer = () => (
+export const Footer = () => (
   <AppBar
     component={'footer'}
     position="sticky"
@@ -23,5 +23,3 @@ const Footer = () => (
     </Toolbar>
   </AppBar>
 );
-
-export { Footer };

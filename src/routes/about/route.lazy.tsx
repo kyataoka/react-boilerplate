@@ -19,8 +19,6 @@ const About = () => (
   </Container>
 );
 
-const Route = createLazyFileRoute('/about')({
+export const Route = createLazyFileRoute('/about')({
   component: About,
 });
-
-export { Route };

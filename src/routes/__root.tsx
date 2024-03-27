@@ -52,8 +52,6 @@ const Root = () => {
   );
 };
 
-const Route = createRootRoute({
+export const Route = createRootRoute({
   component: Root,
 });
-
-export { Route };

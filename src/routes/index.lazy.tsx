@@ -8,8 +8,6 @@ const Home = () => (
   </Container>
 );
 
-const Route = createLazyFileRoute('/')({
+export const Route = createLazyFileRoute('/')({
   component: Home,
 });
-
-export { Route };
