@@ -5,8 +5,9 @@ import { routeTree } from './routeTree.gen';
 
 const router = createRouter({ routeTree: routeTree });
 
+// Register the router instance for type safety
 declare module '@tanstack/react-router' {
-  interface RouteComponentProps {
+  interface Register {
     router: typeof router;
   }
 }
