@@ -16,7 +16,7 @@ type Path = keyof FileRoutesByPath;
 type DrawerProps = {
   open: boolean;
   anchor?: 'left' | 'right' | 'top' | 'bottom';
-  visibleHome?: boolean;
+  showHome?: boolean;
   onClose: () => void;
   menuItem: {
     path: Path;
@@ -27,7 +27,7 @@ type DrawerProps = {
 export const Drawer = ({
   open,
   anchor = 'left',
-  visibleHome = false,
+  showHome = false,
   onClose,
   menuItem,
 }: DrawerProps) => (
@@ -40,7 +40,7 @@ export const Drawer = ({
       sx={{ width: 250 }}
       onClick={onClose}
     >
-      {visibleHome ? (
+      {showHome ? (
         <>
           <List>
             <ListItem disablePadding>

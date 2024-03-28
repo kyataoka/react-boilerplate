@@ -69,7 +69,8 @@ const Root = () => {
         <Header
           onChangeTheme={handleChangeTheme}
           menuItem={menuItem}
-          visibleHome
+          showHome
+          showDrawerOnDesktop
         />
         <Box
           component="main"

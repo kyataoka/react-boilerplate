@@ -28,7 +28,8 @@ type Path = keyof FileRoutesByPath;
 
 export type HeaderProps = {
   onChangeTheme: (theme: PaletteMode) => void;
-  visibleHome?: boolean;
+  showHome?: boolean;
+  showDrawerOnDesktop?: boolean;
   menuItem: {
     path: Path;
     label: string;
@@ -37,7 +38,8 @@ export type HeaderProps = {
 
 export const Header = ({
   onChangeTheme,
-  visibleHome = false,
+  showHome = false,
+  showDrawerOnDesktop = false,
   menuItem,
 }: HeaderProps) => {
   const theme = useTheme();
@@ -61,7 +63,7 @@ export const Header = ({
     <>
       <Drawer
         open={isOpenDrawer}
-        visibleHome={visibleHome}
+        showHome={showHome}
         onClose={handleCloseDrawer}
         menuItem={menuItem}
       />
@@ -78,6 +80,7 @@ export const Header = ({
             <IconButton
               onClick={handleOpenDrawer}
               color="inherit"
+              sx={showDrawerOnDesktop ? null : { display: { sm: 'none' } }}
             >
               <MenuIcon />
             </IconButton>
@@ -90,25 +93,27 @@ export const Header = ({
             >
               {Meta.siteName}
             </Typography>
-            {visibleHome ? (
-              <Button
-                component={RouterLink}
-                to="/"
-                color="inherit"
-              >
-                Home
-              </Button>
-            ) : null}
-            {menuItem.map((item) => (
-              <Button
-                key={item.path}
-                component={RouterLink}
-                to={item.path}
-                color="inherit"
-              >
-                {item.label}
-              </Button>
-            ))}
+            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+              {showHome ? (
+                <Button
+                  component={RouterLink}
+                  to="/"
+                  color="inherit"
+                >
+                  Home
+                </Button>
+              ) : null}
+              {menuItem.map((item) => (
+                <Button
+                  key={item.path}
+                  component={RouterLink}
+                  to={item.path}
+                  color="inherit"
+                >
+                  {item.label}
+                </Button>
+              ))}
+            </Box>
             <Box sx={{ flexGrow: 1 }} />
             <IconButton
               onClick={handleClickThemeButton}
