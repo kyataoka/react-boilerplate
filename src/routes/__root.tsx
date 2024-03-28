@@ -65,7 +65,7 @@ const Root = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', height: '100svh' }}>
         <Header
           onChangeTheme={handleChangeTheme}
           menuItem={menuItem}
