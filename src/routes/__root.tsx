@@ -10,7 +10,7 @@ import {
 import { Outlet, createRootRoute } from '@tanstack/react-router';
 
 import { Footer } from '@/components/Footer';
-import { Header } from '@/components/Header';
+import { Header, type HeaderProps } from '@/components/Header';
 
 const Root = () => {
   const [themeMode, setThemeMode] = useState<PaletteMode>('dark');
@@ -31,11 +31,26 @@ const Root = () => {
     [setThemeMode],
   );
 
+  const menuItem: HeaderProps['menuItem'] = [
+    {
+      path: '/list',
+      label: 'List',
+    },
+    {
+      path: '/about',
+      label: 'About',
+    },
+  ];
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-        <Header onChangeTheme={handleChangeTheme} />
+        <Header
+          onChangeTheme={handleChangeTheme}
+          menuItem={menuItem}
+          visibleHome
+        />
         <Box
           component="main"
           sx={{

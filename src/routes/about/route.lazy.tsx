@@ -15,7 +15,7 @@ const About = () => (
       </li>
       <li>
         <Link
-          to="about/$page"
+          to="/about/$page"
           params={{ page: '2' }}
         >
           About Page 2
