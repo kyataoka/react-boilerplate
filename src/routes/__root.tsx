@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import {
   createTheme,
@@ -13,7 +13,23 @@ import { Footer } from '@/components/Footer';
 import { Header, type HeaderProps } from '@/components/Header';
 
 const Root = () => {
-  const [themeMode, setThemeMode] = useState<PaletteMode>('dark');
+  const [themeMode, setThemeMode] = useState<PaletteMode>(
+    window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light',
+  );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleThemeChange = (e: MediaQueryListEvent) => {
+      setThemeMode(e.matches ? 'dark' : 'light');
+    };
+    mediaQuery.addEventListener('change', handleThemeChange);
+    return () => {
+      mediaQuery.removeEventListener('change', handleThemeChange);
+    };
+  }, []);
+
   const theme = useMemo(
     () =>
       createTheme({
