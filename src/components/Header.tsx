@@ -72,6 +72,7 @@ export const Header = ({
               width: '100%',
               display: 'flex',
               gap: 1,
+              alignItems: 'center',
             }}
           >
             <IconButton
