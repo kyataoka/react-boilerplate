@@ -82,7 +82,7 @@ export const Header = ({
               <MenuIcon />
             </IconButton>
             <Typography
-              variant="h6"
+              variant="h5"
               component={RouterLink}
               color="inherit"
               to="/"
