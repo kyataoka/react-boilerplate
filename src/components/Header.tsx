@@ -2,6 +2,10 @@ import { useCallback, useMemo, useState } from 'react';
 
 import { Menu as MenuIcon } from '@mui/icons-material';
 import {
+  DarkMode as DarkModeIcon,
+  LightMode as LightModeIcon,
+} from '@mui/icons-material';
+import {
   AppBar,
   Toolbar,
   type PaletteMode,
@@ -105,12 +109,12 @@ export const Header = ({
               </Button>
             ))}
             <Box sx={{ flexGrow: 1 }} />
-            <Button
+            <IconButton
               onClick={handleClickThemeButton}
               color="inherit"
             >
-              {themeMode}
-            </Button>
+              {themeMode === 'dark' ? <DarkModeIcon /> : <LightModeIcon />}
+            </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
