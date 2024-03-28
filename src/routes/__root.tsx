@@ -53,6 +53,10 @@ const Root = () => {
       label: 'List',
     },
     {
+      path: '/notification_test',
+      label: 'Notification Test',
+    },
+    {
       path: '/about',
       label: 'About',
     },
