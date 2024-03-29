@@ -40,6 +40,20 @@ const Root = () => {
     [themeMode],
   );
 
+  useEffect(() => {
+    const appbarColor =
+      theme.palette.mode === 'dark' ? '#000000' : theme.palette.primary.main;
+    const metaThemeColor = document.querySelector('meta[name=theme-color]');
+    if (metaThemeColor != null) {
+      metaThemeColor.setAttribute('content', appbarColor);
+    }
+  }, [
+    theme.palette.background.default,
+    theme.palette.background.paper,
+    theme.palette.mode,
+    theme.palette.primary.main,
+  ]);
+
   const handleChangeTheme = useCallback(
     (theme: PaletteMode) => {
       setThemeMode(theme);

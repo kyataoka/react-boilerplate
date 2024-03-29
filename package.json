@@ -10,7 +10,12 @@
     "lint": "eslint ./src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint ./src --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix --quiet && prettier --write ./src",
     "preview": "vite preview",
-    "format": "prettier --write ./src"
+    "format": "prettier --write ./src",
+    "gen:icon": "run-s gen:icon:icon gen:icon:light gen:icon:dark format:index",
+    "gen:icon:icon": "pwa-asset-generator ./public/icon.svg ./public/icons --type png --favicon --index index.html --opaque false --icon-only; pwa-asset-generator ./public/icon.svg ./public/icons --type png --index index.html --icon-only",
+    "gen:icon:light": "pwa-asset-generator ./public/icon.svg ./public/icons --type png --index index.html --splash-only --background \"#FFF\" --padding \"calc(50vh - 20%) calc(50vw - 40%)\"",
+    "gen:icon:dark": "pwa-asset-generator ./public/icon.svg ./public/icons --type png --index index.html --splash-only --background \"#121212\" --dark-mode --padding \"calc(50vh - 20%) calc(50vw - 40%)\"",
+    "format:index": "prettier --write ./index.html"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
@@ -42,9 +47,12 @@
     "eslint-plugin-react-refresh": "^0.4.5",
     "eslint-plugin-unicorn": "^51.0.1",
     "eslint-plugin-unused-imports": "^3.1.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "^3.2.5",
+    "pwa-asset-generator": "^6.3.1",
     "typescript": "^5.2.2",
     "vite": "^5.1.6",
+    "vite-plugin-pwa": "^0.19.7",
     "vite-tsconfig-paths": "^4.3.2"
   }
 }
