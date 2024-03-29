@@ -1,11 +1,12 @@
 import { AppBar, Box, Link, Toolbar } from '@mui/material';
 
-import { Meta } from '@/Meta';
+import { AppConfig } from '@/AppConfig';
 
 export const Footer = () => (
   <AppBar
     component={'footer'}
     position="sticky"
+    sx={{ pb: 'env(safe-area-inset-bottom)' }}
   >
     <Toolbar>
       <Box
@@ -13,11 +14,11 @@ export const Footer = () => (
         width="100%"
       >
         <Link
-          href={Meta.link}
+          href={AppConfig.link}
           color="inherit"
           underline="none"
         >
-          @ {Meta.author}
+          @ {AppConfig.author}
         </Link>
       </Box>
     </Toolbar>

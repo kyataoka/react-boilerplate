@@ -20,7 +20,7 @@ import {
   type FileRoutesByPath,
 } from '@tanstack/react-router';
 
-import { Meta } from '@/Meta';
+import { AppConfig } from '@/AppConfig';
 
 import { Drawer } from './Drawer';
 
@@ -91,7 +91,7 @@ export const Header = ({
               to="/"
               sx={{ textDecoration: 'none' }}
             >
-              {Meta.siteName}
+              {AppConfig.siteName}
             </Typography>
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
               {showHome ? (
