@@ -15,7 +15,9 @@
     "gen:icon:icon": "pwa-asset-generator ./public/icon.svg ./public/icons --type png --favicon --index index.html --opaque false --icon-only; pwa-asset-generator ./public/icon.svg ./public/icons --type png --index index.html --icon-only",
     "gen:icon:light": "pwa-asset-generator ./public/icon.svg ./public/icons --type png --index index.html --splash-only --background \"#FFF\" --padding \"calc(50vh - 20%) calc(50vw - 40%)\"",
     "gen:icon:dark": "pwa-asset-generator ./public/icon.svg ./public/icons --type png --index index.html --splash-only --background \"#121212\" --dark-mode --padding \"calc(50vh - 20%) calc(50vw - 40%)\"",
-    "format:index": "prettier --write ./index.html"
+    "format:index": "prettier --write ./index.html",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
@@ -30,6 +32,15 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^1.2.25",
+    "@storybook/addon-essentials": "^8.0.5",
+    "@storybook/addon-interactions": "^8.0.5",
+    "@storybook/addon-links": "^8.0.5",
+    "@storybook/addon-onboarding": "^8.0.5",
+    "@storybook/blocks": "^8.0.5",
+    "@storybook/react": "^8.0.5",
+    "@storybook/react-vite": "^8.0.5",
+    "@storybook/test": "^8.0.5",
     "@tanstack/router-vite-plugin": "^1.19.6",
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
@@ -45,11 +56,13 @@
     "eslint-plugin-react": "^7.34.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "eslint-plugin-storybook": "^0.8.0",
     "eslint-plugin-unicorn": "^51.0.1",
     "eslint-plugin-unused-imports": "^3.1.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.2.5",
     "pwa-asset-generator": "^6.3.1",
+    "storybook": "^8.0.5",
     "typescript": "^5.2.2",
     "vite": "^5.1.6",
     "vite-plugin-pwa": "^0.19.7",
