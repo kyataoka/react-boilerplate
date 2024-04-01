@@ -10,7 +10,8 @@ import {
 import { Outlet, createRootRoute } from '@tanstack/react-router';
 
 import { Footer } from '@/components/Footer';
-import { Header, type HeaderProps } from '@/components/Header';
+import { Header } from '@/components/Header';
+import { type MenuItemInfo } from '@/types/MenuItemInfo';
 
 const Root = () => {
   const [themeMode, setThemeMode] = useState<PaletteMode>(
@@ -61,18 +62,107 @@ const Root = () => {
     [setThemeMode],
   );
 
-  const menuItem: HeaderProps['menuItem'] = [
+  const menuItemList: MenuItemInfo[] = [
     {
-      path: '/list',
-      label: 'List',
-    },
-    {
-      path: '/notification_test',
-      label: 'Notification Test',
-    },
-    {
-      path: '/about',
       label: 'About',
+      path: '/about',
+    },
+    {
+      label: 'Test',
+      children: [
+        {
+          label: 'API',
+          path: '/list',
+        },
+        {
+          label: 'Notification Test',
+          path: '/notification_test',
+        },
+      ],
+    },
+    {
+      label: '1',
+      children: [
+        {
+          label: '1-1',
+          children: [
+            {
+              label: '1-1-1',
+              children: [
+                {
+                  label: '1-1-1-1',
+                  path: '/grandchild',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: '1-2',
+          children: [
+            {
+              label: '1-2-1',
+              children: [
+                {
+                  label: '1-2-1-1',
+                  path: '/grandchild',
+                },
+              ],
+            },
+            {
+              label: '1-2-2',
+              children: [
+                {
+                  label: '1-2-2-1',
+                  path: '/grandchild',
+                },
+                {
+                  label: '1-2-2-2',
+                  path: '/grandchild',
+                },
+                {
+                  label: '1-2-2-3',
+                  disabled: true,
+                  path: '/grandchild',
+                },
+              ],
+            },
+            {
+              label: '1-2-3',
+              disabled: true,
+              children: [
+                {
+                  label: '1-2-3-1',
+                  path: '/grandchild',
+                },
+                {
+                  label: '1-2-3-2',
+                  path: '/grandchild',
+                },
+                {
+                  label: '1-2-3-3',
+                  disabled: true,
+                  path: '/grandchild',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      label: '2',
+      disabled: true,
+    },
+    {
+      label: '3',
+      disabled: true,
+      children: [
+        {
+          label: '2-1',
+          path: '',
+        },
+      ],
     },
   ];
 
@@ -82,7 +172,7 @@ const Root = () => {
       <Box sx={{ display: 'flex', flexDirection: 'column', height: '100svh' }}>
         <Header
           onChangeTheme={handleChangeTheme}
-          menuItem={menuItem}
+          menuItemList={menuItemList}
           showHome
           showDrawerOnDesktop
         />

@@ -5,6 +5,7 @@ import {
   DarkMode as DarkModeIcon,
   LightMode as LightModeIcon,
 } from '@mui/icons-material';
+import { KeyboardArrowDown as KeyboardArrowDownIcon } from '@mui/icons-material';
 import {
   AppBar,
   Toolbar,
@@ -14,33 +15,99 @@ import {
   useTheme,
   Typography,
   IconButton,
+  Menu,
+  MenuItem,
 } from '@mui/material';
-import {
-  Link as RouterLink,
-  type FileRoutesByPath,
-} from '@tanstack/react-router';
+import {} from '@mui/material';
+import { Link as RouterLink } from '@tanstack/react-router';
+import { NestedMenuItem } from 'mui-nested-menu';
 
 import { AppConfig } from '@/AppConfig';
+import { type MenuItemInfo } from '@/types/MenuItemInfo';
 
-import { Drawer } from './Drawer';
+import { HeaderDrawer } from './HeaderDrawer';
 
-type Path = keyof FileRoutesByPath;
+type HeaderMenuProps = {
+  menuItem: MenuItemInfo & Required<Pick<MenuItemInfo, 'children'>>;
+};
 
-export type HeaderProps = {
+export const HeaderMenu = ({ menuItem }: HeaderMenuProps) => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      setAnchorEl(event.currentTarget);
+    },
+    [],
+  );
+  const handleClose = useCallback(() => {
+    setAnchorEl(null);
+  }, []);
+
+  const buildMenuTree = (menuItem: MenuItemInfo[]) =>
+    menuItem.map((menuItem) =>
+      menuItem.children != undefined ? (
+        <NestedMenuItem
+          key={menuItem.label}
+          parentMenuOpen={open}
+          label={menuItem.label}
+          disabled={menuItem.disabled ?? false}
+        >
+          {buildMenuTree(menuItem.children)}
+        </NestedMenuItem>
+      ) : (
+        <MenuItem
+          key={menuItem.label}
+          component={RouterLink}
+          to={menuItem.path}
+          onClick={handleClose}
+          disabled={menuItem.disabled ?? false}
+        >
+          {menuItem.label}
+        </MenuItem>
+      ),
+    );
+
+  return (
+    <>
+      <Button
+        onClick={handleClick}
+        color="inherit"
+        endIcon={
+          <KeyboardArrowDownIcon
+            style={{
+              transform: open ? 'rotate(180deg)' : 'rotate(360deg)',
+              transition: 'transform 0.3s ease-in-out',
+            }}
+          />
+        }
+        disabled={menuItem.disabled ?? false}
+      >
+        {menuItem.label}
+      </Button>
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+      >
+        {buildMenuTree(menuItem.children)}
+      </Menu>
+    </>
+  );
+};
+
+type HeaderProps = {
   onChangeTheme: (theme: PaletteMode) => void;
   showHome?: boolean;
   showDrawerOnDesktop?: boolean;
-  menuItem: {
-    path: Path;
-    label: string;
-  }[];
+  menuItemList: MenuItemInfo[];
 };
 
 export const Header = ({
   onChangeTheme,
   showHome = false,
   showDrawerOnDesktop = false,
-  menuItem,
+  menuItemList,
 }: HeaderProps) => {
   const theme = useTheme();
   const themeMode = useMemo(() => theme.palette.mode, [theme]);
@@ -61,11 +128,12 @@ export const Header = ({
 
   return (
     <>
-      <Drawer
+      <HeaderDrawer
         open={isOpenDrawer}
         showHome={showHome}
         onClose={handleCloseDrawer}
-        menuItem={menuItem}
+        menuItemList={menuItemList}
+        enabledNestColor
       />
       <AppBar position="sticky">
         <Toolbar>
@@ -103,16 +171,24 @@ export const Header = ({
                   Home
                 </Button>
               ) : null}
-              {menuItem.map((item) => (
-                <Button
-                  key={item.path}
-                  component={RouterLink}
-                  to={item.path}
-                  color="inherit"
-                >
-                  {item.label}
-                </Button>
-              ))}
+              {menuItemList.map((menuItem) =>
+                menuItem.children != null ? (
+                  <HeaderMenu
+                    key={menuItem.label}
+                    menuItem={{ ...menuItem, children: menuItem.children }}
+                  />
+                ) : (
+                  <Button
+                    key={menuItem.label}
+                    component={RouterLink}
+                    to={menuItem.path}
+                    color="inherit"
+                    disabled={menuItem.disabled ?? false}
+                  >
+                    {menuItem.label}
+                  </Button>
+                ),
+              )}
             </Box>
             <Box sx={{ flexGrow: 1 }} />
             <IconButton
