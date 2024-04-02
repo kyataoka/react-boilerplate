@@ -8,10 +8,9 @@ import {
 } from '@mui/material';
 import { Link as RouterLink } from '@tanstack/react-router';
 
+import { HeaderDrawerItem } from '@/components/HeaderDrawerItem';
+import { HeaderDrawerNestItem } from '@/components/HeaderDrawerNestItem';
 import { type MenuItemInfo } from '@/types/MenuItemInfo';
-
-import { HeaderDrawerItem } from './HeaderDrawerItem';
-import { HeaderDrawerNestItem } from './HeaderDrawerNestItem';
 
 export type DrawerProps = {
   open: boolean;

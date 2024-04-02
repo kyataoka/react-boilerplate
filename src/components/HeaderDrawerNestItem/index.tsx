@@ -10,9 +10,8 @@ import {
   useTheme,
 } from '@mui/material';
 
+import { HeaderDrawerItem } from '@/components/HeaderDrawerItem';
 import { type MenuItemInfo } from '@/types/MenuItemInfo';
-
-import { HeaderDrawerItem } from '../HeaderDrawerItem';
 
 export type HeaderDrawerNestItemProps = {
   menuItem: MenuItemInfo & Required<Pick<MenuItemInfo, 'children'>>;

@@ -21,8 +21,8 @@ import { Link as RouterLink } from '@tanstack/react-router';
 import { AppConfig } from '@/AppConfig';
 import { type MenuItemInfo } from '@/types/MenuItemInfo';
 
-import { HeaderDrawer } from './HeaderDrawer';
-import { HeaderMenu } from './HeaderMenu';
+import { HeaderDrawer } from '../HeaderDrawer';
+import { HeaderMenu } from '../HeaderMenu';
 
 type HeaderProps = {
   onChangeTheme: (theme: PaletteMode) => void;
