@@ -3,49 +3,24 @@ import { useCallback, useState } from 'react';
 
 import { KeyboardArrowDown as KeyboardArrowDownIcon } from '@mui/icons-material';
 import {
-  Box,
-  Drawer as MuiDrawer,
-  List,
   ListItem,
   ListItemButton,
-  Divider,
   Collapse,
   Typography,
   useTheme,
 } from '@mui/material';
-import { Link as RouterLink } from '@tanstack/react-router';
 
 import { type MenuItemInfo } from '@/types/MenuItemInfo';
 
-type HeaderDrawerItemProps = {
-  menuItem: MenuItemInfo;
-  depth?: number;
-};
+import { HeaderDrawerItem } from '../HeaderDrawerItem';
 
-const HeaderDrawerItem = ({ menuItem, depth = 0 }: HeaderDrawerItemProps) => (
-  <ListItem disablePadding>
-    <ListItemButton
-      component={RouterLink}
-      to={menuItem.path}
-      disabled={menuItem.disabled ?? false}
-    >
-      <Typography
-        variant="inherit"
-        sx={{ flex: 1, pl: depth * 2 }}
-      >
-        {menuItem.label}
-      </Typography>
-    </ListItemButton>
-  </ListItem>
-);
-
-type HeaderDrawerNestItemProps = {
+export type HeaderDrawerNestItemProps = {
   menuItem: MenuItemInfo & Required<Pick<MenuItemInfo, 'children'>>;
   depth?: number;
   enabledNestColor?: boolean;
 };
 
-const HeaderDrawerNestItem = ({
+export const HeaderDrawerNestItem = ({
   menuItem,
   depth = 0,
   enabledNestColor = false,
@@ -116,64 +91,3 @@ const HeaderDrawerNestItem = ({
     </>
   );
 };
-
-type DrawerProps = {
-  open: boolean;
-  anchor?: 'left' | 'right' | 'top' | 'bottom';
-  showHome?: boolean;
-  onClose: () => void;
-  menuItemList: MenuItemInfo[];
-  enabledNestColor?: boolean;
-};
-
-export const HeaderDrawer = ({
-  open,
-  anchor = 'left',
-  showHome = false,
-  onClose,
-  menuItemList,
-  enabledNestColor = false,
-}: DrawerProps) => (
-  <MuiDrawer
-    anchor={anchor}
-    open={open}
-    onClose={onClose}
-  >
-    <Box
-      sx={{ width: 250 }}
-      onClick={onClose}
-    >
-      {showHome ? (
-        <>
-          <List>
-            <ListItem disablePadding>
-              <ListItemButton
-                component={RouterLink}
-                to="/"
-              >
-                Home
-              </ListItemButton>
-            </ListItem>
-          </List>
-          <Divider />
-        </>
-      ) : null}
-      <List>
-        {menuItemList.map((menuItem) =>
-          menuItem.children != null ? (
-            <HeaderDrawerNestItem
-              key={menuItem.label}
-              menuItem={{ ...menuItem, children: menuItem.children }}
-              enabledNestColor={enabledNestColor}
-            />
-          ) : (
-            <HeaderDrawerItem
-              key={menuItem.label}
-              menuItem={menuItem}
-            />
-          ),
-        )}
-      </List>
-    </Box>
-  </MuiDrawer>
-);
