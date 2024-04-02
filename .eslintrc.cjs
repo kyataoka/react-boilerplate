@@ -9,7 +9,15 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.json',
   },
-  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:react/recommended', 'plugin:react/jsx-runtime', 'plugin:react-hooks/recommended', 'prettier', 'plugin:storybook/recommended'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react/recommended',
+    'plugin:react/jsx-runtime',
+    'plugin:react-hooks/recommended',
+    'prettier',
+    'plugin:storybook/recommended',
+  ],
   plugins: [
     'react-refresh',
     'import',
@@ -187,4 +195,14 @@ module.exports = {
       },
     ],
   },
+  overrides: [
+    {
+      files: ['*.stories.@(ts|tsx|js)'],
+      extends: ['plugin:storybook/recommended'],
+      rules: {
+        'import/no-default-export': 'off',
+        'import/no-extraneous-dependencies': 'off',
+      },
+    },
+  ],
 };
