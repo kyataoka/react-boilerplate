@@ -1,9 +1,9 @@
 ---
-to: "<%= needStories ? `${dir.replace(/\\/$/, '')}/${componentName}/${componentName}.stories.tsx` : null %>"
+to: "<% const fileName = componentName.replace(/([a-z])([A-Z])/g, '$1-$2').replace(/([A-Z])([A-Z][a-z])/g, '$1-$2').toLowerCase() %><%= needStories ? `${dir.replace(/\\/$/, '')}/${fileName}/${fileName}.stories.tsx` : null %>"
 ---
-import { type StoryObj, type Meta } from '@storybook/react';
+<% const fileName = componentName.replace(/([a-z])([A-Z])/g, '$1-$2').replace(/([A-Z])([A-Z][a-z])/g, '$1-$2').toLowerCase() %>import { type StoryObj, type Meta } from '@storybook/react';
 
-import { <%= componentName %> } from '@<%= dir.slice(3).replace(/\/$/, '') %>/<%= componentName %>';
+import { <%= componentName %> } from '@<%= dir.slice(3).replace(/\/$/, '') %>/<%= fileName %>';
 
 type T = typeof <%= componentName %>;
 type Story = StoryObj<T>;
