@@ -36,7 +36,7 @@ export const Header = ({
   showHome = false,
   showDrawerOnDesktop = false,
   menuItemList,
-}: HeaderProps) => {
+}: Readonly<HeaderProps>) => {
   const theme = useTheme();
   const themeMode = useMemo(() => theme.palette.mode, [theme]);
 
@@ -76,7 +76,7 @@ export const Header = ({
             <IconButton
               onClick={handleOpenDrawer}
               color="inherit"
-              sx={showDrawerOnDesktop ? null : { display: { sm: 'none' } }}
+              sx={showDrawerOnDesktop ? undefined : { display: { sm: 'none' } }}
             >
               <MenuIcon />
             </IconButton>
@@ -98,14 +98,9 @@ export const Header = ({
                 >
                   Home
                 </Button>
-              ) : null}
+              ) : undefined}
               {menuItemList.map((menuItem) =>
-                menuItem.children != null ? (
-                  <HeaderMenu
-                    key={menuItem.label}
-                    menuItem={{ ...menuItem, children: menuItem.children }}
-                  />
-                ) : (
+                menuItem.children == undefined ? (
                   <Button
                     key={menuItem.label}
                     component={RouterLink}
@@ -115,6 +110,11 @@ export const Header = ({
                   >
                     {menuItem.label}
                   </Button>
+                ) : (
+                  <HeaderMenu
+                    key={menuItem.label}
+                    menuItem={{ ...menuItem, children: menuItem.children }}
+                  />
                 ),
               )}
             </Box>

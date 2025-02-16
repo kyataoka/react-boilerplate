@@ -23,12 +23,12 @@ export const HeaderDrawerNestItem = ({
   menuItem,
   depth = 0,
   enabledNestColor = false,
-}: HeaderDrawerNestItemProps) => {
+}: Readonly<HeaderDrawerNestItemProps>) => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
   const handleClick = useCallback(
-    (e: React.MouseEvent<HTMLElement>) => {
+    (e: Readonly<React.MouseEvent<HTMLElement>>) => {
       setOpen(!open);
       e.stopPropagation();
     },
@@ -72,16 +72,16 @@ export const HeaderDrawerNestItem = ({
         }}
       >
         {menuItem.children.map((menuItem) =>
-          menuItem.children != null ? (
-            <HeaderDrawerNestItem
-              key={menuItem.label}
-              menuItem={{ ...menuItem, children: menuItem.children }}
-              depth={depth + 1}
-            />
-          ) : (
+          menuItem.children == undefined ? (
             <HeaderDrawerItem
               key={menuItem.label}
               menuItem={menuItem}
+              depth={depth + 1}
+            />
+          ) : (
+            <HeaderDrawerNestItem
+              key={menuItem.label}
+              menuItem={{ ...menuItem, children: menuItem.children }}
               depth={depth + 1}
             />
           ),

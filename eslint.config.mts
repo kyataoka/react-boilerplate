@@ -1,15 +1,15 @@
 import eslint from '@eslint/js';
-import eslintPluginReact from 'eslint-plugin-react';
-import tseslint from 'typescript-eslint';
-import eslintPluginReactHooks from 'eslint-plugin-react-hooks';
-import * as eslintPluginImport from 'eslint-plugin-import';
-import eslintPluginUnusedImports from 'eslint-plugin-unused-imports';
-import eslintPluginPreferArrowFunctions from 'eslint-plugin-prefer-arrow-functions';
-import eslintPluginReactRefresh from 'eslint-plugin-react-refresh';
-import eslintPluginUnicorn from 'eslint-plugin-unicorn';
-import eslintPluginFunctional from 'eslint-plugin-functional';
 import eslintConfigPrettier from 'eslint-config-prettier';
+import eslintPluginFunctional from 'eslint-plugin-functional';
+import * as eslintPluginImport from 'eslint-plugin-import';
+import eslintPluginPreferArrowFunctions from 'eslint-plugin-prefer-arrow-functions';
+import eslintPluginReact from 'eslint-plugin-react';
+import eslintPluginReactHooks from 'eslint-plugin-react-hooks';
+import eslintPluginReactRefresh from 'eslint-plugin-react-refresh';
 import eslintPluginStorybook from 'eslint-plugin-storybook';
+import eslintPluginUnicorn from 'eslint-plugin-unicorn';
+import eslintPluginUnusedImports from 'eslint-plugin-unused-imports';
+import tseslint from 'typescript-eslint';
 
 const filesForReact = ['**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx'];
 
@@ -35,10 +35,11 @@ export default tseslint.config([
   {
     ignores: [
       'dist',
-      'eslint.config.mjs',
+      'eslint.config.mts',
       'prettierrc.cjs',
       'vite.config.ts',
       '_templates/generator/*/prompt.cjs',
+      'src/**/*.gen.ts',
     ],
   },
   //common
@@ -57,9 +58,8 @@ export default tseslint.config([
   },
 
   // import
-  eslintPluginImport.flatConfigs?.recommended,
   {
-    // plugins: { import: eslintPluginImport },
+    plugins: { import: eslintPluginImport },
     settings: {
       'import/resolver': {
         typescript: {
@@ -132,12 +132,19 @@ export default tseslint.config([
       ...eslintPluginUnicorn.configs.recommended.rules,
       'unicorn/prefer-switch': 'error',
       'unicorn/prevent-abbreviations': 'off',
+      'unicorn/filename-case': 'off',
     },
   },
 
   //functional
+  eslintPluginFunctional.configs.recommended,
   {
     plugins: { functional: eslintPluginFunctional },
+    files: concatListNoDuplication(
+      filesForReact,
+      filesForStorybook,
+      filesForUnitTest,
+    ),
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
@@ -145,7 +152,7 @@ export default tseslint.config([
       },
     },
     rules: {
-      ...eslintPluginFunctional.configs.recommended.rules,
+      // ...eslintPluginFunctional.configs.recommended.rules,
       'functional/no-let': [
         'error',
         {
@@ -174,6 +181,8 @@ export default tseslint.config([
       ],
       'functional/functional-parameters': 'off',
       'functional/no-expression-statements': 'off',
+      'functional/no-return-void': 'off',
+      'functional/no-mixed-types': 'off',
     },
   },
 
@@ -253,12 +262,6 @@ export default tseslint.config([
     rules: {
       'import/no-default-export': 'off',
       'import/no-extraneous-dependencies': 'off',
-    },
-  },
-  {
-    files: concatListNoDuplication(filesForUnitTest),
-    rules: {
-      'functional/no-return-void': 'off',
     },
   },
 ]);

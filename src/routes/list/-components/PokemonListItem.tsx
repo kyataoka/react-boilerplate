@@ -9,7 +9,9 @@ type PokemonListItemProps = {
   pokemon: Pokemon;
 };
 
-export const PokemonListItem = ({ pokemon }: PokemonListItemProps) => {
+export const PokemonListItem = ({
+  pokemon,
+}: Readonly<PokemonListItemProps>) => {
   const { data } = usePokemonSpecies(pokemon.name);
 
   const japaneseName = useMemo(

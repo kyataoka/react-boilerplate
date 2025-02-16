@@ -12,31 +12,22 @@ export type HeaderMenuProps = {
   menuItem: MenuItemInfo & Required<Pick<MenuItemInfo, 'children'>>;
 };
 
-export const HeaderMenu = ({ menuItem }: HeaderMenuProps) => {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+export const HeaderMenu = ({ menuItem }: Readonly<HeaderMenuProps>) => {
+  const [anchorEl, setAnchorEl] = useState<undefined | HTMLElement>();
   const open = Boolean(anchorEl);
   const handleClick = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>) => {
+    (event: Readonly<React.MouseEvent<HTMLButtonElement>>) => {
       setAnchorEl(event.currentTarget);
     },
     [],
   );
   const handleClose = useCallback(() => {
-    setAnchorEl(null);
+    setAnchorEl(undefined);
   }, []);
 
-  const buildMenuTree = (menuItem: MenuItemInfo[]) =>
+  const buildMenuTree = (menuItem: Readonly<MenuItemInfo[]>) =>
     menuItem.map((menuItem) =>
-      menuItem.children != undefined ? (
-        <NestedMenuItem
-          key={menuItem.label}
-          parentMenuOpen={open}
-          label={menuItem.label}
-          disabled={menuItem.disabled ?? false}
-        >
-          {buildMenuTree(menuItem.children)}
-        </NestedMenuItem>
-      ) : (
+      menuItem.children == undefined ? (
         <MenuItem
           key={menuItem.label}
           component={RouterLink}
@@ -46,6 +37,15 @@ export const HeaderMenu = ({ menuItem }: HeaderMenuProps) => {
         >
           {menuItem.label}
         </MenuItem>
+      ) : (
+        <NestedMenuItem
+          key={menuItem.label}
+          parentMenuOpen={open}
+          label={menuItem.label}
+          disabled={menuItem.disabled ?? false}
+        >
+          {buildMenuTree(menuItem.children)}
+        </NestedMenuItem>
       ),
     );
 

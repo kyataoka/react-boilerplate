@@ -28,7 +28,7 @@ export const HeaderDrawer = ({
   onClose,
   menuItemList,
   enabledNestColor = false,
-}: DrawerProps) => (
+}: Readonly<DrawerProps>) => (
   <MuiDrawer
     anchor={anchor}
     open={open}
@@ -52,19 +52,19 @@ export const HeaderDrawer = ({
           </List>
           <Divider />
         </>
-      ) : null}
+      ) : undefined}
       <List>
         {menuItemList.map((menuItem) =>
-          menuItem.children != null ? (
+          menuItem.children == undefined ? (
+            <HeaderDrawerItem
+              key={menuItem.label}
+              menuItem={menuItem}
+            />
+          ) : (
             <HeaderDrawerNestItem
               key={menuItem.label}
               menuItem={{ ...menuItem, children: menuItem.children }}
               enabledNestColor={enabledNestColor}
-            />
-          ) : (
-            <HeaderDrawerItem
-              key={menuItem.label}
-              menuItem={menuItem}
             />
           ),
         )}

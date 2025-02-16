@@ -15,14 +15,14 @@ import { type MenuItemInfo } from '@/types/MenuItemInfo';
 
 const Root = () => {
   const [themeMode, setThemeMode] = useState<PaletteMode>(
-    window.matchMedia('(prefers-color-scheme: dark)').matches
+    globalThis.matchMedia('(prefers-color-scheme: dark)').matches
       ? 'dark'
       : 'light',
   );
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleThemeChange = (e: MediaQueryListEvent) => {
+    const mediaQuery = globalThis.matchMedia('(prefers-color-scheme: dark)');
+    const handleThemeChange = (e: Readonly<MediaQueryListEvent>) => {
       setThemeMode(e.matches ? 'dark' : 'light');
     };
     mediaQuery.addEventListener('change', handleThemeChange);
@@ -45,9 +45,7 @@ const Root = () => {
     const appbarColor =
       theme.palette.mode === 'dark' ? '#000000' : theme.palette.primary.main;
     const metaThemeColor = document.querySelector('meta[name=theme-color]');
-    if (metaThemeColor != null) {
-      metaThemeColor.setAttribute('content', appbarColor);
-    }
+    metaThemeColor?.setAttribute('content', appbarColor);
   }, [
     theme.palette.background.default,
     theme.palette.background.paper,

@@ -30,7 +30,8 @@
   },
   "include": [
     "src",
-    "./vitest-setup.ts"
+    "./vitest-setup.ts",
+    "eslint.config.mts"
   ],
   "references": [
     {

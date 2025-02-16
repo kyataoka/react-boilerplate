@@ -11,7 +11,7 @@ export type HeaderDrawerItemProps = {
 export const HeaderDrawerItem = ({
   menuItem,
   depth = 0,
-}: HeaderDrawerItemProps) => (
+}: Readonly<HeaderDrawerItemProps>) => (
   <ListItem disablePadding>
     <ListItemButton
       component={RouterLink}
